@@ -1,5 +1,6 @@
 package com.unisoma_test.unisoma.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -17,6 +18,11 @@ public class EmployeeService {
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
+
+    public List<EmployeeModel> listEmployees(){
+        return employeeRepository.findAll();
+    }
+
     public EmployeeModel registerEmployee(EmployeeDto employeeDto){
         Optional<EmployeeModel> haveEmployee =  employeeRepository.findByCpf(employeeDto.getCpf());
         if(haveEmployee.isPresent()){
