@@ -8,8 +8,6 @@ public class UnisomaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(UnisomaApplication.class, args);
-
-		System.out.println("hello world!");
 	}
 
 }

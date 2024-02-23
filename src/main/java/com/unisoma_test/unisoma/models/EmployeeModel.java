@@ -1,7 +1,9 @@
 package com.unisoma_test.unisoma.models;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+
+
+import com.unisoma_test.unisoma.dtos.EmployeeDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +19,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "employees")
 public class EmployeeModel {
+
     
+    public EmployeeModel(EmployeeDto employeeDto) {
+        this.name = employeeDto.getName();
+        this.cpf = employeeDto.getCpf();
+        this.birthDay = employeeDto.getBirthDay();
+        this.phone = employeeDto.getPhone();
+        this.address = employeeDto.getAddress();
+        this.salary = employeeDto.getSalary();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -29,7 +41,7 @@ public class EmployeeModel {
     private String cpf;
 
     @Column(nullable = false)
-    private LocalDate birthDay;
+    private String birthDay;
 
     @Column(nullable = false)
     private String phone;

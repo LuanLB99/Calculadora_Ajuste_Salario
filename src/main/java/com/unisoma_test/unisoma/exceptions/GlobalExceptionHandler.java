@@ -12,5 +12,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> notFoundException(NotFoundException ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro: " + ex.getMessage());
     }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<String> conflictException(ConflictException ex){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Erro: " + ex.getMessage());
+    }
     
 }
