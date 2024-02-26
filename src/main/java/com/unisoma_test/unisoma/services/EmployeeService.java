@@ -40,8 +40,8 @@ public class EmployeeService {
         if(!haveEmployee.isPresent()){
             throw new NotFoundException("CPF de usuário não encontrado.");
         }
-        EmployeeModel employee = haveEmployee.get();
-        return employee;
+
+        return haveEmployee.get();
     }
 
 
