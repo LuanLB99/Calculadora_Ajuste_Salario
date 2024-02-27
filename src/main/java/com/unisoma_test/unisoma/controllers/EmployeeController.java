@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.unisoma_test.unisoma.dtos.CpfRequestDto;
 import com.unisoma_test.unisoma.dtos.EmployeeDto;
+import com.unisoma_test.unisoma.dtos.IncomeTaxResponseDto;
 import com.unisoma_test.unisoma.dtos.SalaryAdjustmentResponseDto;
 import com.unisoma_test.unisoma.models.EmployeeModel;
 import com.unisoma_test.unisoma.services.EmployeeService;
@@ -64,8 +65,6 @@ public class EmployeeController {
     }
 
     @PostMapping("/adjustSalary")
-
-
     public ResponseEntity<Object> adjustSalary(@RequestBody @Valid CpfRequestDto cpfDtoForm, BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()){
@@ -75,9 +74,20 @@ public class EmployeeController {
 
         SalaryAdjustmentResponseDto salaryAdjustInformations = salaryServices.adjustSalary(cpfDtoForm);
         
-        return ResponseEntity.status(HttpStatus.CREATED).body(salaryAdjustInformations);
+        return ResponseEntity.status(HttpStatus.OK).body(salaryAdjustInformations);
     }
     
+    @PostMapping("/calculateIncomeTax")
+    public ResponseEntity<Object> calculateIncomeTax(@RequestBody @Valid CpfRequestDto cpfDtoForm, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            String errorMessage = "Erro de validação: " + bindingResult.getFieldError().getDefaultMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+        }
+
+        IncomeTaxResponseDto salaryIncomeTaxInformations = salaryServices.calculateIncomeTax(cpfDtoForm);
+
+        return ResponseEntity.status(HttpStatus.OK).body(salaryIncomeTaxInformations);
+    }
     
 
 
