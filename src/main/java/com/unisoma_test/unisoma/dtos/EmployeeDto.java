@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,5 +34,6 @@ public class EmployeeDto {
     private String address;
 
     @NotNull(message = "O salário não pode ser nulo")
+    @Positive(message = "O salário deve ser maior que zero")
     private BigDecimal salary;
 }
