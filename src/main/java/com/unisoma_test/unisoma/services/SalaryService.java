@@ -12,13 +12,13 @@ import com.unisoma_test.unisoma.models.EmployeeModel;
 import com.unisoma_test.unisoma.repositories.EmployeeRepository;
 
 @Service
-public class SalaryServices {
+public class SalaryService {
     
     final EmployeeRepository employeeRepository;
     final EmployeeService employeeService;
     
 
-    public SalaryServices(EmployeeRepository employeeRepository, EmployeeService employeeService) {
+    public SalaryService(EmployeeRepository employeeRepository, EmployeeService employeeService) {
         this.employeeRepository = employeeRepository;
         this.employeeService = employeeService;
     }
@@ -30,14 +30,14 @@ public class SalaryServices {
 
         SalaryRate newSalary = new SalaryRate(salary);
 
-       SalaryAdjustmentResponseDto newSalaryInformations = newSalary.makeAdjust();
+        SalaryAdjustmentResponseDto newSalaryInformations = newSalary.makeAdjust();
 
-       newSalaryInformations.setCpf(employee.getCpf());
-       employee.setSalary(newSalaryInformations.getNewSalary());
-       employeeRepository.save(employee);
+        newSalaryInformations.setCpf(employee.getCpf());
+        employee.setSalary(newSalaryInformations.getNewSalary());
+        employeeRepository.save(employee);
      
 
-       return newSalaryInformations;
+        return newSalaryInformations;
     
     }
 

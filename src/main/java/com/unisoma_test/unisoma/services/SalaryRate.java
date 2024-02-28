@@ -1,6 +1,7 @@
 package com.unisoma_test.unisoma.services;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class SalaryRate {
             for (SalaryRange range : SALARY_RANGES){
                 if(isInRange(employeeSalary, range)){
                     BigDecimal adjustment = employeeSalary.multiply(range.rate);
-                        return new SalaryAdjustmentResponseDto(employeeSalary.add(adjustment), adjustment, range.rate);
+                        return new SalaryAdjustmentResponseDto(employeeSalary.add(adjustment).setScale(2, RoundingMode.HALF_EVEN), adjustment.setScale(2, RoundingMode.HALF_EVEN), range.rate);
                 }
             }
             

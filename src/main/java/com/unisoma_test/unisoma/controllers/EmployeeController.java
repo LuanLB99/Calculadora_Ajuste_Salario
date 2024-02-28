@@ -8,7 +8,7 @@ import com.unisoma_test.unisoma.dtos.IncomeTaxResponseDto;
 import com.unisoma_test.unisoma.dtos.SalaryAdjustmentResponseDto;
 import com.unisoma_test.unisoma.models.EmployeeModel;
 import com.unisoma_test.unisoma.services.EmployeeService;
-import com.unisoma_test.unisoma.services.SalaryServices;
+import com.unisoma_test.unisoma.services.SalaryService;
 
 import jakarta.validation.Valid;
 
@@ -30,13 +30,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class EmployeeController {
 
     final EmployeeService employeeService;
-    final SalaryServices salaryServices;
+    final SalaryService salaryService;
 
    
 
-    public EmployeeController(EmployeeService employeeService, SalaryServices salaryServices) {
+    public EmployeeController(EmployeeService employeeService, SalaryService salaryService) {
         this.employeeService = employeeService;
-        this.salaryServices = salaryServices;
+        this.salaryService = salaryService;
     }
 
     @GetMapping("/health")
@@ -53,13 +53,13 @@ public class EmployeeController {
     
 
     @PostMapping("/employee")
-    public ResponseEntity<Object> employeeRegister(@RequestBody @Valid EmployeeDto EmployeeDtoForm, BindingResult bindingResult) {
+    public ResponseEntity<Object> employeeRegister(@RequestBody @Valid EmployeeDto employeeDtoForm, BindingResult bindingResult) {
 
             if(bindingResult.hasErrors()){
                 String errorMessage = "Erro de validação: " + bindingResult.getFieldError().getDefaultMessage();
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
             }
-            EmployeeModel employee = employeeService.registerEmployee(EmployeeDtoForm);
+            EmployeeModel employee = employeeService.registerEmployee(employeeDtoForm);
             return ResponseEntity.status(HttpStatus.CREATED).body(employee);
         
     }
@@ -72,7 +72,7 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
         }
 
-        SalaryAdjustmentResponseDto salaryAdjustInformations = salaryServices.adjustSalary(cpfDtoForm);
+        SalaryAdjustmentResponseDto salaryAdjustInformations = salaryService.adjustSalary(cpfDtoForm);
         
         return ResponseEntity.status(HttpStatus.OK).body(salaryAdjustInformations);
     }
@@ -84,7 +84,7 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
         }
 
-        IncomeTaxResponseDto salaryIncomeTaxInformations = salaryServices.calculateIncomeTax(cpfDtoForm);
+        IncomeTaxResponseDto salaryIncomeTaxInformations = salaryService.calculateIncomeTax(cpfDtoForm);
 
         return ResponseEntity.status(HttpStatus.OK).body(salaryIncomeTaxInformations);
     }
