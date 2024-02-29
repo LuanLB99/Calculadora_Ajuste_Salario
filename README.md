@@ -27,6 +27,16 @@ Entre no diretório do projeto
   cd Calculadora_Ajuste_Salario
 ```
 
+### Configurar variáveis de ambiente
+
+`DB_URL=jdbc:postgresql://localhost:5432/nome-do-banco`
+
+`DB_USERNAME=seu-usuario`
+
+`DB_PASSWORD=sua-senha`
+
+
+
 Instale as dependências
 
 ```bash
@@ -38,18 +48,9 @@ Inicie o servidor
 ```bash
   /mvnw spring-boot:run
 ```
+em caso de erro de configuração, pode rodar direto pela sua IDE.
 
 a aplicação estará acessível em http://localhost:8080.
-
-### Configurar variáveis de ambiente
-
-`DB_URL=jdbc:postgresql://localhost:5432/nome-do-banco`
-
-`DB_USERNAME=seu-usuario`
-
-`DB_PASSWORD=sua-senha`
-
-
 
 ## Documentação da API
 
